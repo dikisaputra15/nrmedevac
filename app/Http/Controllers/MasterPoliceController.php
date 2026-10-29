@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Police;
-use App\Models\Provincesregion;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
@@ -55,10 +54,7 @@ class MasterPoliceController extends Controller
 
      public function create()
     {
-         $provinces = Provincesregion::all();
-        return view('pages.master.createpolice', [
-            'provinces' => $provinces
-        ]);
+        return view('pages.master.createpolice');
     }
 
     public function store(Request $request)
@@ -66,7 +62,8 @@ class MasterPoliceController extends Controller
         $police = new Police();
 
 
-        $police->province_id = $request->input('province_id');
+        // Legacy required column; no province lookup is used.
+        $police->province_id = 0;
         $police->name_police = $request->input('name_police');
         $police->level = $request->input('level');
         $police->category = $request->input('category');
@@ -89,10 +86,8 @@ class MasterPoliceController extends Controller
      public function edit($id)
     {
         $police = Police::findOrFail($id);
-        $provinces = Provincesregion::all();
         return view('pages.master.editpolice', [
             'police' => $police,
-            'provinces' => $provinces
         ]);
     }
 
@@ -103,7 +98,6 @@ class MasterPoliceController extends Controller
 
          // Update data
         $data = [
-            'province_id' => $request->input('province_id'),
             'name_police' => $request->input('name_police'),
             'level' => $request->input('level'),
             'category' => $request->input('category'),

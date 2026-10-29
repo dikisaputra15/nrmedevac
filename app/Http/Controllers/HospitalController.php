@@ -7,7 +7,6 @@ use App\Models\Hospital;
 use App\Models\Airport;
 use App\Models\Police;
 use App\Models\Embassiees;
-use App\Models\Provincesregion;
 use Illuminate\Support\Facades\DB;
 
 class HospitalController extends Controller
@@ -21,8 +20,7 @@ class HospitalController extends Controller
         $hospitalCategories = DB::table('hospitals')->distinct()->pluck('facility_level')->filter()->sort()->values();
         $hospitalLocations = DB::table('hospitals')->distinct()->pluck('address')->filter()->sort()->values();
 
-        $provinces = Provincesregion::all();
-        return view('pages.hospital.index', compact('provinces','hospitalNames','hospitalCategories','hospitalLocations'));
+        return view('pages.hospital.index', compact('hospitalNames','hospitalCategories','hospitalLocations'));
     }
 
     /**
@@ -81,8 +79,6 @@ class HospitalController extends Controller
     public function showdetail($id)
     {
         $hospital = Hospital::findOrFail($id);
-        $idprov = $hospital->province_id;
-        $province = DB::table('provincesregions')->where('id', $idprov)->first();
 
         $latitude = $hospital->latitude;
         $longitude = $hospital->longitude;
@@ -107,7 +103,7 @@ class HospitalController extends Controller
         ->orderBy('distance')
         ->get();
 
-        return view('pages.hospital.showdetail', compact('hospital','province','nearbyHospitals','nearbyAirports','radius_km'));
+        return view('pages.hospital.showdetail', compact('hospital','nearbyHospitals','nearbyAirports','radius_km'));
     }
 
     public function showdetailclinic($id)
@@ -180,8 +176,7 @@ class HospitalController extends Controller
     public function filter(Request $request)
     {
         $query = Hospital::query();
-        $query->leftJoin('provincesregions', 'provincesregions.id', '=', 'hospitals.province_id');
-        $query->select('hospitals.*', 'provincesregions.provinces_region');
+        $query->select('hospitals.*');
 
         $query->where('hospital_status', true);
 
@@ -204,15 +199,6 @@ class HospitalController extends Controller
         // Filter by location
         $query->when($request->filled('location'), function ($q) use ($request) {
             $q->where('address', 'like', '%' . $request->input('location') . '%');
-        });
-
-         // 4. Filter by Province IDs
-        $query->when($request->filled('provinces'), function ($q) use ($request) {
-            // Ensure province IDs are an array and valid integers
-            $provinceIds = array_filter((array) $request->input('provinces'), 'is_numeric');
-            if (!empty($provinceIds)) {
-                $q->whereIn('province_id', $provinceIds);
-            }
         });
 
         // Filter by radius (Haversine Formula)

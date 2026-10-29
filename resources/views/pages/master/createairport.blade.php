@@ -19,17 +19,7 @@
             </div>
         </div>
 
-         <div class="col-md-12">
-            <div class="form-group">
-                <label>Village</label>
-                <select class="form-control" name="province_id">
-                        <option value="0">-Choosse Village-</option>
-                    @foreach($provinces as $prov)
-                        <option value="{{$prov->id}}">{{$prov->provinces_region}}</option>
-                    @endforeach
-                </select>
-            </div>
-        </div>
+
 
          <div class="col-md-12">
             <div class="form-group">

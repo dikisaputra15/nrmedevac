@@ -7,7 +7,6 @@ use App\Models\Embassiees;
 use App\Models\Police;
 use App\Models\Hospital;
 use App\Models\Airport;
-use App\Models\Provincesregion;
 use Illuminate\Support\Facades\DB;
 
 class EmbassieesController extends Controller
@@ -20,8 +19,7 @@ class EmbassieesController extends Controller
         $embassyNames = DB::table('embassiees')->distinct()->pluck('name_embassiees')->filter()->sort()->values();
         $embassyLocations = DB::table('embassiees')->distinct()->pluck('location')->filter()->sort()->values();
 
-        $provinces = Provincesregion::all();
-        return view('pages.embassiees.index', compact('provinces','embassyNames','embassyLocations'));
+        return view('pages.embassiees.index', compact('embassyNames','embassyLocations'));
     }
 
     /**
@@ -80,18 +78,13 @@ class EmbassieesController extends Controller
     public function showdetail($id)
     {
         $embassy = Embassiees::findOrFail($id);
-        $province = Provincesregion::findOrFail($embassy->province_id);
-        return view('pages.embassiees.showdetail', compact('embassy', 'province'));
+        return view('pages.embassiees.showdetail', compact('embassy'));
     }
 
     public function filter(Request $request)
     {
         $query = Embassiees::query()
-            ->leftJoin('provincesregions', 'embassiees.province_id', '=', 'provincesregions.id')
-            ->select(
-                'embassiees.*',
-                'provincesregions.provinces_region'
-            );
+            ->select('embassiees.*');
 
         $query->where('embassy_status', true);
 
@@ -103,15 +96,6 @@ class EmbassieesController extends Controller
         // Filter by location
         $query->when($request->filled('location'), function ($q) use ($request) {
             $q->where('location', 'like', '%' . $request->input('location') . '%');
-        });
-
-       // 4. Filter by Province IDs
-        $query->when($request->filled('provinces'), function ($q) use ($request) {
-            // Ensure province IDs are an array and valid integers
-            $provinceIds = array_filter((array) $request->input('provinces'), 'is_numeric');
-            if (!empty($provinceIds)) {
-                $q->whereIn('province_id', $provinceIds);
-            }
         });
 
         // Filter by radius (Haversine Formula)

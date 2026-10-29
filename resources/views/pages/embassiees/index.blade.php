@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title','Embassiees')
-@section('page-title', 'Guam Embassiees')
+@section('page-title', 'Nauru Embassiees')
 
 @push('styles')
 
@@ -309,8 +309,8 @@
 <script>
 // === Inisialisasi Peta ===
 const map = new google.maps.Map(document.getElementById('map'), {
-    center: { lat: 13.4443, lng: 144.7937 },
-    zoom: 10,
+    center: { lat: -0.5228, lng: 166.9315 },
+    zoom: 13,
     mapTypeId: 'roadmap',
     mapTypeControl: true,
     fullscreenControl: true,
@@ -813,7 +813,6 @@ function addEmbassyMarkers(data) {
     embassyMarkers.forEach(m => m.setMap(null));
     embassyMarkers = [];
 
-    const bounds = new google.maps.LatLngBounds();
 
     data.forEach(embassy => {
         if (!embassy.latitude || !embassy.longitude) return;
@@ -834,7 +833,7 @@ function addEmbassyMarkers(data) {
 
         const popupContent = `
             <h5 style="border-bottom:1px solid #cccccc;">${itemName}</h5>
-            <strong>Address:</strong> ${embassy.location || 'N/A'}, Territory (Government of Guam)<br>
+            <strong>Address:</strong> ${embassy.location || 'N/A'}, Territory (Government of Nauru)<br>
             <strong>Telephone:</strong> ${embassy.telephone || 'N/A'}<br>
             <strong>Website:</strong> ${embassy.website || 'N/A'}<br>
         `;
@@ -895,11 +894,9 @@ function addEmbassyMarkers(data) {
         });
 
         embassyMarkers.push(marker);
-        bounds.extend(position);
     });
 
-    if (embassyMarkers.length > 0)
-        map.fitBounds(bounds, 50);
+    // Keep the map centered on Nauru when marker data is refreshed.
 }
 
 // === Apply Filter ===
@@ -986,43 +983,7 @@ combinedPanelDiv.innerHTML = `
                 @endforeach
             </select>
             <hr>
-            <div class="filter-box" id="provinceSelect">
-                <label class="filter-label">Province</label>
 
-                <div class="select-input">
-                    <input
-                        type="text"
-                        id="provinceSearch"
-                        placeholder="Select Province"
-                        readonly
-                    >
-                    <i class="bi bi-chevron-down"></i>
-                </div>
-
-                <div class="select-dropdown">
-                    <input
-                        type="text"
-                        class="dropdown-search"
-                        id="provinceSearchInput"
-                        placeholder="Search Province..."
-                    >
-
-                    <ul id="provinceList">
-                        @foreach ($provinces as $p)
-                        <li>
-                            <label>
-                                <input
-                                    type="checkbox"
-                                    class="province-checkbox"
-                                    value="{{ $p->id }}"
-                                >
-                                {{ $p->provinces_region }}
-                            </label>
-                        </li>
-                        @endforeach
-                    </ul>
-                </div>
-            </div>
             <hr>
             <button id="resetMapFilter" class="btn btn-sm btn-secondary w-100">Reset All</button>
             <div id="totalCountDisplay" style="margin-top:8px;text-align:center;font-size:13px;"></div>

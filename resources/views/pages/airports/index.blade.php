@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title', 'Airports')
-@section('page-title', 'Guam Airports')
+@section('page-title', 'Nauru Airports')
 
 @push('styles')
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
@@ -482,8 +482,8 @@
 <script>
 // === Inisialisasi Peta ===
 const map = new google.maps.Map(document.getElementById('map'), {
-    center: { lat: 13.4443, lng: 144.7937 },
-    zoom: 10,
+    center: { lat: -0.5228, lng: 166.9315 },
+    zoom: 13,
     mapTypeId: 'roadmap',
     mapTypeControl: true,
     fullscreenControl: true,
@@ -985,7 +985,6 @@ function addAirportMarkers(data) {
     airportMarkers.forEach(m => m.setMap(null));
     airportMarkers = [];
 
-    const bounds = new google.maps.LatLngBounds();
 
     data.forEach(airport => {
         if (!airport.latitude || !airport.longitude) return;
@@ -1009,7 +1008,7 @@ function addAirportMarkers(data) {
             <strong>Classification:</strong> ${airport.category || 'N/A'}<br>
             <strong>Address:</strong>
                 ${airport.address || 'N/A'}
-                ${airport.province_name ? ', ' + airport.province_name : ''}, Guam<br>
+                , Nauru<br>
             <strong>Telephone:</strong> ${airport.telephone || 'N/A'}<br>
             <strong>Website:</strong> ${airport.website || 'N/A'}<br>
         `;
@@ -1070,11 +1069,9 @@ function addAirportMarkers(data) {
         });
 
         airportMarkers.push(marker);
-        bounds.extend(position);
     });
 
-    if (airportMarkers.length > 0)
-        map.fitBounds(bounds, 50);
+    // Keep the map centered on Nauru when marker data is refreshed.
 }
 
 // === Apply Filter ===
@@ -1237,43 +1234,7 @@ combinedPanelDiv.innerHTML = `
             </label>
             `).join('')}
             <hr>
-            <div class="filter-box" id="provinceSelect">
-                <label class="filter-label">Province</label>
 
-                <div class="select-input">
-                    <input
-                        type="text"
-                        id="provinceSearch"
-                        placeholder="Select Province"
-                        readonly
-                    >
-                    <i class="bi bi-chevron-down"></i>
-                </div>
-
-                <div class="select-dropdown">
-                    <input
-                        type="text"
-                        class="dropdown-search"
-                        id="provinceSearchInput"
-                        placeholder="Search Province..."
-                    >
-
-                    <ul id="provinceList">
-                        @foreach ($provinces as $p)
-                        <li>
-                            <label>
-                                <input
-                                    type="checkbox"
-                                    class="province-checkbox"
-                                    value="{{ $p->id }}"
-                                >
-                                {{ $p->provinces_region }}
-                            </label>
-                        </li>
-                        @endforeach
-                    </ul>
-                </div>
-            </div>
             <hr>
             <button id="resetMapFilter" class="btn btn-sm btn-secondary w-100">Reset All</button>
             <div id="totalCountDisplay" style="margin-top:8px;text-align:center;font-size:13px;"></div>

@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title', 'Police')
-@section('page-title', 'Guam Police')
+@section('page-title', 'Nauru Police')
 
 @push('styles')
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
@@ -368,7 +368,7 @@
 
                 <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#police3Modal">
                     <img src="{{ asset('images/Layer2.png') }}" style="width:15px; height:15px;">
-                    <small>Police Precint</small>
+                    <small>Specialized Unit</small>
                 </button>
 
                 <button type="button" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('hospital') ? 'active' : '' }}"
@@ -512,11 +512,11 @@
         <p><strong>Command level:</strong> Highest-level territorial command</p>
         <p><strong>Typical Head Rank:</strong> Police Major</p>
         <p><strong>Administrative Equivalent:</strong> Territorial policing bureau</p>
-        <p><strong>Role:</strong> The Patrol Operations Bureau is the principal departmental command responsible for organizing and overseeing GPD’s geographically based patrol operations throughout Guam.</p>
+        <p><strong>Role:</strong> The Patrol Operations Bureau is the principal departmental command responsible for organizing and overseeing GPD’s geographically based patrol operations throughout Nauru.</p>
         <p>The Patrol Operations Bureau directs territorial patrol services, coordinates the neighborhood patrol districts and precinct commands, and ensures consistent delivery of frontline police services across the island.</p>
         <p class="mb-2"><strong>Responsibilities:</strong></p>
         <ul>
-          <li>Direct territorial patrol operations throughout Guam.</li>
+          <li>Direct territorial patrol operations throughout Nauru.</li>
           <li>Supervise the activities of the neighborhood patrol districts and precinct commands.</li>
           <li>Establish patrol priorities and operational requirements for territorial policing.</li>
           <li>Coordinate deployment of patrol personnel and resources according to operational needs.</li>
@@ -565,14 +565,14 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body p-4" style="overflow-y: auto;">
-        <p>The GPD’s command flow follows a hierarchical structure from the Governor of Guam as the civilian executive authority, through the Chief of Police and the Police Commander, to the Department’s operational and specialized bureaus. Under the Police Commander, the Patrol Operations Bureau directs the neighborhood patrol districts and their respective precinct commands, which in turn supervise frontline patrol officers and shifts. Specialized functions, including investigations, forensic services, highway patrol, and special operations, operate through their respective bureau and division chains while remaining integrated into the overall command structure. This arrangement enables strategic direction from the executive and headquarters levels to be translated into operational orders, specialized activities, and geographically focused frontline policing throughout Guam.</p>
+        <p>The GPD’s command flow follows a hierarchical structure from the Governor of Nauru as the civilian executive authority, through the Chief of Police and the Police Commander, to the Department’s operational and specialized bureaus. Under the Police Commander, the Patrol Operations Bureau directs the neighborhood patrol districts and their respective precinct commands, which in turn supervise frontline patrol officers and shifts. Specialized functions, including investigations, forensic services, highway patrol, and special operations, operate through their respective bureau and division chains while remaining integrated into the overall command structure. This arrangement enables strategic direction from the executive and headquarters levels to be translated into operational orders, specialized activities, and geographically focused frontline policing throughout Nauru.</p>
 
         <h6 class="fw-bold mt-4 mb-3">Reporting Relationships &mdash; Information Flows</h6>
         <ol class="mb-0 ps-4">
           <li class="mb-3"><strong>Divisional Reporting:</strong> Precinct commands and patrol shifts report operational activities, incidents, and local policing matters through their respective neighborhood patrol districts and Patrol Operations Bureau chains to the Police Commander.</li>
           <li class="mb-3"><strong>Specialized Case Reporting:</strong> Cases requiring specialized investigation, forensic examination, highway enforcement, or special operations are referred through the appropriate specialized division or bureau, with case information and operational results reported through their respective command chains.</li>
           <li class="mb-3"><strong>Headquarters Reporting:</strong> Bureaus and divisions submit operational, personnel, administrative, and performance information through the Police Commander and Chief of Police to maintain department-wide coordination and oversight.</li>
-          <li><strong>Strategic and Administrative Reporting:</strong> The Chief of Police provides overall departmental reporting and administrative accountability to the Governor of Guam, while strategic direction, policy, resources, and major administrative matters flow from the executive level through the GPD command structure.</li>
+          <li><strong>Strategic and Administrative Reporting:</strong> The Chief of Police provides overall departmental reporting and administrative accountability to the Governor of Nauru, while strategic direction, policy, resources, and major administrative matters flow from the executive level through the GPD command structure.</li>
         </ol>
       </div>
     </div>
@@ -636,8 +636,8 @@
 <script>
 // === Inisialisasi Peta ===
 const map = new google.maps.Map(document.getElementById('map'), {
-    center: { lat: 13.4443, lng: 144.7937 },
-    zoom: 10,
+    center: { lat: -0.5228, lng: 166.9315 },
+    zoom: 13,
     mapTypeId: 'roadmap',
     mapTypeControl: true,
     fullscreenControl: true,
@@ -1144,7 +1144,6 @@ function addPoliceMarkers(data) {
     policeMarkers.forEach(m => m.setMap(null));
     policeMarkers = [];
 
-    const bounds = new google.maps.LatLngBounds();
 
     data.forEach(police => {
         if (!police.latitude || !police.longitude) return;
@@ -1167,7 +1166,7 @@ function addPoliceMarkers(data) {
             <h5>${itemName}</h5>
             <strong>Address:</strong>
                 ${police.location || 'N/A'}
-                ${police.province_name || 'N/A'}, Guam<br>
+                ${police.province_name || 'N/A'}, Nauru<br>
             <strong>Phone:</strong> ${police.telephone || 'N/A'}<br>
             <strong>Website:</strong> ${police.website || 'N/A'}<br>
         `;
@@ -1228,11 +1227,9 @@ function addPoliceMarkers(data) {
         });
 
         policeMarkers.push(marker);
-        bounds.extend(position);
     });
 
-    if (policeMarkers.length > 0)
-        map.fitBounds(bounds, 50);
+    // Keep the map centered on Nauru when marker data is refreshed.
 }
 
 // === Apply Filter POLICE ===
@@ -1338,7 +1335,7 @@ combinedPanelDiv.innerHTML = `
             <label>Category:</label>
             ${[
                 'National Police HQ',
-                'Police Precint',
+                'Specialized Unit',
             ].map(c => `
             <label style="display:block;font-size:13px;margin-bottom:5px;">
                 <input type="checkbox" name="policeCategory" value="${c}">
@@ -1346,43 +1343,7 @@ combinedPanelDiv.innerHTML = `
             </label>
             `).join('')}
             <hr>
-            <div class="filter-box" id="provinceSelect">
-                <label class="filter-label">Province</label>
 
-                <div class="select-input">
-                    <input
-                        type="text"
-                        id="provinceSearch"
-                        placeholder="Select Province"
-                        readonly
-                    >
-                    <i class="bi bi-chevron-down"></i>
-                </div>
-
-                <div class="select-dropdown">
-                    <input
-                        type="text"
-                        class="dropdown-search"
-                        id="provinceSearchInput"
-                        placeholder="Search Province..."
-                    >
-
-                    <ul id="provinceList">
-                        @foreach ($provinces as $p)
-                        <li>
-                            <label>
-                                <input
-                                    type="checkbox"
-                                    class="province-checkbox"
-                                    value="{{ $p->id }}"
-                                >
-                                {{ $p->provinces_region }}
-                            </label>
-                        </li>
-                        @endforeach
-                    </ul>
-                </div>
-            </div>
             <hr>
             <button id="resetMapFilter" class="btn btn-sm btn-secondary w-100">Reset All</button>
             <div id="totalCountDisplay" style="margin-top:8px;text-align:center;font-size:13px;"></div>

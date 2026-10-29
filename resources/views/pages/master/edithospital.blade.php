@@ -27,27 +27,7 @@
             </div>
         </div>
 
-        <div class="col-md-12">
-            <div class="form-group">
-                <label>Village</label>
-                <select class="form-control" name="province_id">
-                    <?php
-                        foreach ($provinces as $prov) {
 
-                            if ($prov->id==$hospital->province_id) {
-                                $select="selected";
-                            }else{
-                                $select="";
-                            }
-
-                        ?>
-                            <option <?php echo $select; ?> value="<?php echo $prov->id;?>"><?php echo $prov->provinces_region; ?></option>
-
-                    <?php } ?>
-
-                </select>
-            </div>
-        </div>
 
          <div class="col-md-12">
             <div class="form-group">

@@ -7,7 +7,6 @@ use App\Models\Police;
 use App\Models\Hospital;
 use App\Models\Airport;
 use App\Models\Embassiees;
-use App\Models\Provincesregion;
 use Illuminate\Support\Facades\DB;
 use Exception;
 
@@ -21,19 +20,14 @@ class PoliceController extends Controller
         $policeCategories = Police::distinct()->pluck('category')->filter()->sort()->values();
         $policeLocations = Police::distinct()->pluck('location')->filter()->sort()->values();
 
-        $provinces = Provincesregion::all(); // Get all provinces
 
-        return view('pages.police.index', compact('provinces', 'policeNames', 'policeCategories', 'policeLocations'));
+        return view('pages.police.index', compact('policeNames', 'policeCategories', 'policeLocations'));
     }
 
      public function filter(Request $request)
     {
         $query = Police::query()
-            ->leftJoin('provincesregions', 'police.province_id', '=', 'provincesregions.id')
-            ->select(
-                'police.*',
-                'provincesregions.provinces_region as province_name'
-            );
+            ->select('police.*');
 
         $query->where('police_status', true);
 
@@ -54,15 +48,6 @@ class PoliceController extends Controller
         // 3. Filter by Location (Address - case-insensitive search)
         $query->when($request->filled('location'), function ($q) use ($request) {
             $q->where('location', 'like', '%' . $request->input('location') . '%');
-        });
-
-        // 4. Filter by Province IDs
-        $query->when($request->filled('provinces'), function ($q) use ($request) {
-            // Ensure province IDs are an array and valid integers
-            $provinceIds = array_filter((array) $request->input('provinces'), 'is_numeric');
-            if (!empty($provinceIds)) {
-                $q->whereIn('province_id', $provinceIds);
-            }
         });
 
         // 5. Filter by Radius (Haversine Formula)
@@ -146,7 +131,7 @@ class PoliceController extends Controller
        $polices = $query->get();
         $categoryCounts = [
             'National Police HQ' => 0,
-            'Police Precint' => 0,
+            'Specialized Unit' => 0,
         ];
 
        foreach ($polices as $police) {
@@ -171,8 +156,7 @@ class PoliceController extends Controller
     public function showdetail($id)
     {
         $police = Police::findOrFail($id);
-        $province = DB::table('provincesregions')->where('id', $police->province_id)->first();
-        return view('pages.police.showdetail', compact('police', 'province'));
+        return view('pages.police.showdetail', compact('police'));
     }
 
      public function showdetailemergency($id)

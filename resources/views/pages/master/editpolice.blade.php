@@ -20,27 +20,7 @@
             </div>
         </div>
 
-         <div class="col-md-12">
-            <div class="form-group">
-                <label>Edit Provinces, Region</label>
-                <select class="form-control" name="province_id">
-                    <?php
-                        foreach ($provinces as $prov) {
 
-                            if ($prov->id==$police->province_id) {
-                                $select="selected";
-                            }else{
-                                $select="";
-                            }
-
-                        ?>
-                            <option <?php echo $select; ?> value="<?php echo $prov->id;?>"><?php echo $prov->provinces_region; ?></option>
-
-                    <?php } ?>
-
-                </select>
-            </div>
-        </div>
 
         <div class="col-md-12">
             <div class="form-group">
@@ -109,15 +89,15 @@
                     <label>National Police HQ</label>
                 </div>
 
-                <div class="form-check form-check-inline police-option {{ $police->category == 'Police Precint' ? 'selected' : '' }}">
+                <div class="form-check form-check-inline police-option {{ $police->category == 'Specialized Unit' ? 'selected' : '' }}">
                     <input class="form-check-input category-radio"
                         type="radio"
                         name="category"
-                        value="Police Precint"
+                        value="Specialized Unit"
                         data-icon="{{ asset('images/Layer2.png') }}"
-                        {{ $police->category == 'Police Precint' ? 'checked' : '' }}>
+                        {{ $police->category == 'Specialized Unit' ? 'checked' : '' }}>
                     <img src="{{ asset('images/Layer2.png') }}" width="16">
-                    <label>Police Precint</label>
+                    <label>Specialized Unit</label>
                 </div>
             </div>
         </div>

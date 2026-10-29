@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title','More Details')
-@section('page-title', 'Guam Airports')
+@section('page-title', 'Nauru Airports')
 
 @push('styles')
 
@@ -176,7 +176,7 @@
     <!-- Kolom kiri dengan 3 card -->
     <div class="col-md-3">
         <div class="card mb-3">
-            <div class="card-header fw-bold"><img src="{{ asset('AdminLTE/plugins/flag-icon-css/flags/4x3/gu.svg') }}" alt="Bendera Guam" style="width: 30px; height: 30px; object-fit: contain;"> Domestic</div>
+            <div class="card-header fw-bold"><img src="{{ asset('AdminLTE/plugins/flag-icon-css/flags/4x3/nr.svg') }}" alt="Bendera Nauru" style="width: 30px; height: 30px; object-fit: contain;"> Domestic</div>
             <div class="card-body overflow-auto" style="max-height: 300px;">
                 <?php echo $airport->domestic_flights; ?>
             </div>
@@ -245,7 +245,7 @@
             </div>
 
             <div class="card-body overflow-auto">
-                <iframe src="https://globe.adsbexchange.com/?lat=13.48389&lon=144.79722&zoom=5" width="100%" height="600" frameborder="0"></iframe>
+                <iframe src="https://globe.adsbexchange.com/?lat=-0.547893&lon=166.919525&zoom=10" width="100%" height="600" frameborder="0"></iframe>
             </div>
         </div>
     </div>

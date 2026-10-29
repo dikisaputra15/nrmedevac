@@ -7,7 +7,6 @@ use App\Models\Airport;
 use App\Models\Hospital;
 use App\Models\Police;
 use App\Models\Embassiees;
-use App\Models\Provincesregion;
 use Illuminate\Support\Facades\DB;
 use Exception; // Import Exception for better error handling
 
@@ -25,9 +24,8 @@ class AirportsController extends Controller
         $airportCategories = Airport::distinct()->pluck('category')->filter()->sort()->values();
         $airportLocations = Airport::distinct()->pluck('address')->filter()->sort()->values();
 
-        $provinces = Provincesregion::all(); // Get all provinces
 
-        return view('pages.airports.index', compact('provinces', 'airportNames', 'airportCategories', 'airportLocations'));
+        return view('pages.airports.index', compact('airportNames', 'airportCategories', 'airportLocations'));
     }
 
     /**
@@ -37,11 +35,7 @@ class AirportsController extends Controller
     public function filter(Request $request)
     {
         $query = Airport::query()
-            ->leftJoin('provincesregions', 'airports.province_id', '=', 'provincesregions.id')
-            ->select(
-                'airports.*',
-                'provincesregions.provinces_region as province_name'
-            );
+            ->select('airports.*');
 
         $query->where('airport_status', true);
 
@@ -65,15 +59,6 @@ class AirportsController extends Controller
         // 3. Filter by Location (Address - case-insensitive search)
         $query->when($request->filled('location'), function ($q) use ($request) {
             $q->where('address', 'like', '%' . $request->input('location') . '%');
-        });
-
-        // 4. Filter by Province IDs
-        $query->when($request->filled('provinces'), function ($q) use ($request) {
-            // Ensure province IDs are an array and valid integers
-            $provinceIds = array_filter((array) $request->input('provinces'), 'is_numeric');
-            if (!empty($provinceIds)) {
-                $q->whereIn('province_id', $provinceIds);
-            }
         });
 
         // 5. Filter by Radius (Haversine Formula)
@@ -219,9 +204,8 @@ class AirportsController extends Controller
     public function showdetail($id)
     {
         $airport = Airport::findOrFail($id);
-        $province = Provincesregion::findOrFail($airport->province_id);
 
-        return view('pages.airports.showdetail', compact('airport', 'province'));
+        return view('pages.airports.showdetail', compact('airport'));
     }
 
     public function showdetailemergency($id)

@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Hospital;
-use App\Models\Provincesregion;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
@@ -63,10 +62,7 @@ class MasterhospitalController extends Controller
      */
     public function create()
     {
-        $provinces = Provincesregion::all();
-        return view('pages.master.createhospital', [
-            'provinces' => $provinces
-        ]);
+        return view('pages.master.createhospital');
     }
 
     /**
@@ -89,7 +85,8 @@ class MasterhospitalController extends Controller
          }
 
 
-        $hospital->province_id = $request->input('province_id');
+        // Legacy required column; no province lookup is used.
+        $hospital->province_id = 0;
         $hospital->name = $request->input('name');
         $hospital->latitude = $request->input('latitude');
         $hospital->longitude = $request->input('longitude');
@@ -160,10 +157,8 @@ class MasterhospitalController extends Controller
     public function edit($id)
     {
         $hospital = Hospital::findOrFail($id);
-        $provinces = Provincesregion::all();
         return view('pages.master.edithospital', [
             'hospital' => $hospital,
-            'provinces' => $provinces
         ]);
     }
 
@@ -177,7 +172,6 @@ class MasterhospitalController extends Controller
 
         // Update data
         $data = [
-            'province_id' => $request->input('province_id'),
             'name' => $request->input('name'),
             'latitude' => $request->input('latitude'),
             'longitude' => $request->input('longitude'),

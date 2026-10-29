@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Airport;
-use App\Models\Provincesregion;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
@@ -63,10 +62,7 @@ class MasterairportController extends Controller
      */
     public function create()
     {
-         $provinces = Provincesregion::all();
-        return view('pages.master.createairport', [
-            'provinces' => $provinces
-        ]);
+        return view('pages.master.createairport');
     }
 
     /**
@@ -92,7 +88,8 @@ class MasterairportController extends Controller
 
          }
 
-        $airport->province_id = $request->input('province_id');
+        // Legacy required column; no province lookup is used.
+        $airport->province_id = 0;
         $airport->airport_name = $request->input('airport_name');
         $airport->address = $request->input('address');
         $airport->latitude = $request->input('latitude');
@@ -176,13 +173,11 @@ class MasterairportController extends Controller
         };
         $public_facilities = $parseList($airport->public_facilities);
         $public_transportation = $parseList($airport->public_transportation);
-        $provinces = Provincesregion::all();
         return view('pages.master.editairport', [
             'airport' => $airport,
             'category' => $category,
             'public_facilities' => $public_facilities,
             'public_transportation' => $public_transportation,
-            'provinces' => $provinces
         ]);
     }
 
@@ -199,7 +194,6 @@ class MasterairportController extends Controller
 
         // Update data
         $data = [
-            'province_id' => $request->input('province_id'),
             'airport_name' => $request->input('airport_name'),
             'address' => $request->input('address'),
             'latitude' => $request->input('latitude'),

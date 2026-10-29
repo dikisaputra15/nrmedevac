@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Embassiees;
-use App\Models\Provincesregion;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
@@ -63,10 +62,7 @@ class MasterembessyController extends Controller
      */
     public function create()
     {
-         $provinces = Provincesregion::all();
-        return view('pages.master.createembessy', [
-            'provinces' => $provinces
-        ]);
+        return view('pages.master.createembessy');
     }
 
     /**
@@ -88,7 +84,8 @@ class MasterembessyController extends Controller
 
          }
 
-        $embassy->province_id = $request->input('province_id');
+        // Legacy required column; no province lookup is used.
+        $embassy->province_id = 0;
         $embassy->name_embassiees = $request->input('embassy_name');
         $embassy->location = $request->input('location');
         $embassy->telephone = $request->input('telephone');
@@ -118,10 +115,8 @@ class MasterembessyController extends Controller
     public function edit($id)
     {
         $embassy = Embassiees::findOrFail($id);
-        $provinces = Provincesregion::all();
         return view('pages.master.editembassy', [
             'embassy' => $embassy,
-            'provinces' => $provinces
         ]);
     }
 
@@ -135,7 +130,6 @@ class MasterembessyController extends Controller
 
          // Update data
         $data = [
-            'province_id' => $request->input('province_id'),
             'name_embassiees' => $request->input('embassy_name'),
             'location' => $request->input('location'),
             'telephone' => $request->input('telephone'),

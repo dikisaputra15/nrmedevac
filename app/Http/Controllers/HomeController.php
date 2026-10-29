@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Models\Hospital;
 use App\Models\Airport;
 use App\Models\Embassiees;
-use App\Models\Provincesregion;
 use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
@@ -26,7 +25,6 @@ class HomeController extends Controller
         $hospitalLocations = DB::table('hospitals')->distinct()->pluck('address')->filter()->sort()->values();
          $totalhospital = Hospital::count();
 
-        $provinces = Provincesregion::all();
 
         return view('pages.dashboard',
             [
@@ -36,7 +34,6 @@ class HomeController extends Controller
                 'airportNames' => $airportNames,
                 'airportCategories' => $airportCategories,
                 'airportLocations' => $airportLocations,
-                'provinces' => $provinces,
                 'hospitalNames' => $hospitalNames,
                 'hospitalCategories' => $hospitalCategories,
                 'hospitalLocations' => $hospitalLocations,
@@ -60,7 +57,6 @@ class HomeController extends Controller
         $hospitalLocations = DB::table('hospitals')->distinct()->pluck('address')->filter()->sort()->values();
          $totalhospital = Hospital::count();
 
-        $provinces = Provincesregion::all();
 
         return view('pages.admindashboard',
             [
@@ -70,7 +66,6 @@ class HomeController extends Controller
                 'airportNames' => $airportNames,
                 'airportCategories' => $airportCategories,
                 'airportLocations' => $airportLocations,
-                'provinces' => $provinces,
                 'hospitalNames' => $hospitalNames,
                 'hospitalCategories' => $hospitalCategories,
                 'hospitalLocations' => $hospitalLocations,
