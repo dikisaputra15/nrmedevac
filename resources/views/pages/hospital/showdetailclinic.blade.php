@@ -317,10 +317,7 @@
                           <div class="hospital-list">
                             <div class="hospital-row">
                               <div class="hospital-item">
-                                <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level55Modal">
-                                  <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-blue.png" style="width:24px; height:24px;">
-                                  <small>Hospital</small>
-                                </button>
+                                @include('partials.map-legend.button', ['modalId' => 'level55Modal', 'buttonClass' => 'btn p-1'])
                               </div>
                             </div>
                           </div>
@@ -332,10 +329,7 @@
                           <div class="hospital-list">
                             <div class="hospital-row">
                               <div class="hospital-item">
-                                <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#level33Modal">
-                                  <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-green.png" style="width:24px; height:24px;">
-                                  <small>Clinic / Health Centre</small>
-                                </button>
+                                @include('partials.map-legend.button', ['modalId' => 'level33Modal', 'buttonClass' => 'btn p-1'])
                               </div>
                             </div>
                           </div>
@@ -682,41 +676,7 @@
   </div>
 </div>
 
-<div class="modal fade" id="level33Modal" tabindex="-1" aria-labelledby="disclaimerLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="max-width:800px;">
-    <div class="modal-content">
-      <div class="modal-header">
-         <div class="d-flex align-items-center">
-            <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-green.png" style="width:30px; height:30px;">
-            <h5 class="modal-title" id="disclaimerLabel">Clinic / Health Centre</h5>
-        </div>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-            <h6 class="fw-bold"><b>Overview</b></h6>
-            <p class="text-justify">Community Health Centers are the primary-care tier of Nauru’s public system. The Community Health Centers Act of 2025 (10 GCA Chapter 3, Article 8, as amended by P.L. 38-097 on 11 February 2026) makes the Nauru Community Health Centers (GCHC) “a public corporation and autonomous instrumentality.” GCHC is administered by a Board of Directors and a Chief Executive Officer, and must follow US Health Resources &amp; Services Administration (HRSA) Health Center Program requirements (10 GCA Section 3803). The law names two regional centers (10 GCA Section 3808): the Northern Regional Community Health Center (NRCHC) in Dededo and the Southern Regional Community Health Center (SRCHC) in Inalåhan. The Board may establish more centers (10 GCA Sections 3805(g) and 3808(c)).</p>
-            <p class="text-justify"><strong>Note:</strong> The Community Health Centers are moving out of the Department of Public Health and Social Services (DPHSS). Section 3815 sets a three-year transition period starting on enactment (11 February 2026), extendable one year at a time for up to three more years. During this period GCHC works toward “full administrative and operational independence,” after which all program staff, property and federal grant responsibilities transfer from DPHSS to GCHC. Until the transition is complete, sources may describe the centers as either DPHSS facilities or GCHC facilities; both refer to the same tier. The law also refers to a DPHSS Central Public Health Facility (10 GCA Section 3108), which delivers public-health programs rather than general primary care. Record it as “Public — public health facility (DPHSS)” and do not count it as a Community Health Center.</p>
-            <h6 class="fw-bold"><b>Role</b></h6>
-            <ul>
-                <li>Provide “basic quality health care to the people of Nauru” (10 GCA Section 3801) as the entry point to the public system, with each regional center tasked to provide “quality comprehensive primary health care services to all the residents of Nauru” (10 GCA Section 3808)</li>
-                <li>Fill gaps where private clinics are “saturated,” not meeting demand, or unavailable in primary care, pediatric care, prenatal care, infectious disease care and urgent care (10 GCA Section 3805(g))</li>
-                <li>Provide primary and urgent care where such services are unavailable in the community, including through contracts with GMHA or other providers (10 GCA Section 3810); refer patients needing hospital care to GMH or another hospital.</li>
-            </ul>
-            <h6 class="fw-bold"><b>Clinical Service</b></h6>
-            <p><strong>Typical Bed Capacity</strong></p>
-            <ul>
-                <li>No inpatient beds; the Community Health Centers are outpatient facilities. The law sets no bed or staffing standard for them.</li>
-            </ul>
-            <p><strong>Diagnostic &amp; Support Infrastructure</strong></p>
-            <ul>
-                <li>Outpatient medical, pharmacy and primary-care services. The law authorizes a Chief Pharmacist for the Northern and Southern Community Health Centers (10 GCA Section 3108) and requires a Medical Director, preferably a board-certified or board-eligible primary care physician (10 GCA Section 3804(c))</li>
-                <li>Sliding fees: the law says fees “shall not be [a] deterrent to receiving health care” (10 GCA Section 3807)</li>
-            </ul>
-            <p class="text-justify"><em><strong>Note:</strong> Legal basis: 10 GCA Chapter 3, Article 1 (Section 3108) and Article 8 (Sections 3801–3818), as amended by P.L. 38-097 (11 February 2026). This law is very recent, so confirm the status of the transition before relying on it.</em></p>
-      </div>
-    </div>
-  </div>
-</div>
+@include('partials.map-legend.clinic')
 
 <div class="modal fade" id="level44Modal" tabindex="-1" aria-labelledby="disclaimerLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="max-width:800px;">
@@ -817,47 +777,7 @@
   </div>
 </div>
 
-<div class="modal fade" id="level55Modal" tabindex="-1" aria-labelledby="disclaimerLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="max-width:800px;">
-    <div class="modal-content">
-      <div class="modal-header">
-        <div class="d-flex align-items-center">
-            <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-blue.png" style="width:30px; height:30px;">
-            <h5 class="modal-title" id="disclaimerLabel">Hospital</h5>
-        </div>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-            <h6 class="fw-bold"><b>Overview</b></h6>
-            <p class="text-justify">The Nauru Memorial Hospital (GMH) is Nauru’s only public hospital and the top of the civilian public system. It is run by the Nauru Memorial Hospital Authority (GMHA), which the law makes “a public corporation and an autonomous instrumentality” of the government of Nauru (10 GCA Section 80102). GMHA is governed by a Board of Trustees (10 GCA Section 80105). By law, GMHA must “[m]aintain and operate a facility providing acute, chronic and all other health care services,” including services it provides by contract for the Nauru Behavioral Health and Wellness Center (10 GCA Section 80109(a)). The acute-care hospital is at Oka Point, Tamuning. GMHA also runs a separately located Skilled Nursing Facility in Barrigada Heights.</p>
-            <p class="text-justify"><strong>Note:</strong> Three other facilities sit outside this tier. First, the Nauru Behavioral Health and Wellness Center (GBHWC), formerly the Department of Mental Health and Substance Abuse, is a separate government department. By law it provides “comprehensive inpatient and community-based outpatient mental health, alcohol and drug programs and services” (10 GCA Section 86101); record it as “Public — specialty behavioral health facility,” not as a general hospital. Second, the US Naval Hospital Nauru in Agana Heights is a federal military hospital serving primarily active-duty personnel and other military beneficiaries. It is not governed by the GCA; record it as “Federal (military) hospital” and leave it out of the civilian tiers. Third, GMH’s accreditation should be checked before it is cited. GMH regained Joint Commission accreditation in 2010 and lost it again in July 2018. GMHA currently describes the hospital as CMS certified, and its laboratory is accredited by the College of American Pathologists (CAP). We did not find a current Joint Commission status, so treat any claim of current Joint Commission accreditation as unverified.</p>
-            <h6 class="fw-bold"><b>Role</b></h6>
-            <ul>
-                <li>Serve as Nauru’s only public acute-care hospital and the main civilian referral hospital for the Community Health Centers and private clinics</li>
-                <li>Provide 24-hour emergency care. By law, GMHA must also establish an Urgent Healthcare Center on the hospital premises for non-emergency outpatient care, meeting Joint Commission and CMS primary-care / urgent-care criteria (10 GCA Section 80123)</li>
-                <li>Serve as the hospital of last resort for patients covered by government programs. GMHA’s accounts must separately track receivables from Medicare, Medicaid, the Medically Indigent Program, Worker’s Compensation and other governments, including the Freely Associated States (10 GCA Section 80116)</li>
-                <li>Provide hospitalization, treatment and drugs for medically indigent patients with irreversible renal failure (10 GCA Section 80117).</li>
-            </ul>
-            <h6 class="fw-bold"><b>Clinical Service</b></h6>
-            <p><strong>Core Capability Areas</strong></p>
-            <ul>
-                <li>Acute and chronic inpatient care, emergency care, and the on-site urgent care center mandated by 10 GCA Section 80123</li>
-                <li>Long-term (skilled nursing) care at the off-site Skilled Nursing Facility. Under 10 GCA Section 7103(b), a nursing home run with a hospital needs its own nursing-home license, separate from the hospital’s</li>
-            </ul>
-            <p><strong>Diagnostic &amp; Support Infrastructure</strong></p>
-            <ul>
-                <li>Hospital clinical laboratory (CAP-accredited), with diagnostic and treatment services. The statutory definition of a “hospital” requires at least clinical laboratory services, diagnostic x-ray services, and facilities for surgery, obstetric care or other definitive treatment (10 GCA Section 25101(d))</li>
-                <li>Aging infrastructure. The Nauru Legislature has found that GMH’s buildings are more than 50 years old, “in an overall state of failure,” and endanger its CMS-based accreditation status. It authorized a replacement healthcare campus under the Nauru Twenty-First (21st) Century Healthcare Center Act of 2021 (12 GCA Chapter 83)</li>
-            </ul>
-            <p><strong>Typical Bed Capacity</strong></p>
-            <ul>
-                <li>About 158–161 licensed acute-care beds at Tamuning, plus 40 licensed long-term-care beds at the Barrigada Heights Skilled Nursing Facility. Sources differ slightly on the acute-care figure.</li>
-            </ul>
-            <p class="text-justify"><em><strong>Note:</strong> Legal basis: 10 GCA Sections 25101, 7103, 80102–80123 and 86101; 12 GCA Chapter 83. Bed counts and accreditation history come from Naurupedia and Wikipedia; CMS certification and CAP accreditation come from the GMHA website (gmha.org). None of these details are stated in the GCA itself.</em></p>
-      </div>
-    </div>
-  </div>
-</div>
+@include('partials.map-legend.hospital')
 
 <div class="modal fade" id="level66Modal" tabindex="-1" aria-labelledby="level66ModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable level66-modal-dialog">

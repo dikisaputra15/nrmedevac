@@ -361,15 +361,9 @@
             <div class="d-flex align-items-center gap-3">
                 <span class="fw-bold me-2">Map Legend:</span>
 
-                <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#police4Modal">
-                    <img src="{{ asset('images/Layer1.png') }}" style="width:15px; height:15px;">
-                    <small>National Police HQ</small>
-                </button>
+                @include('partials.map-legend.button', ['modalId' => 'police4Modal', 'buttonClass' => 'btn p-1', 'iconSize' => 15])
 
-                <button class="btn p-1" data-bs-toggle="modal" data-bs-target="#police3Modal">
-                    <img src="{{ asset('images/Layer2.png') }}" style="width:15px; height:15px;">
-                    <small>Specialized Unit</small>
-                </button>
+                @include('partials.map-legend.button', ['modalId' => 'police3Modal', 'buttonClass' => 'btn p-1', 'iconSize' => 15])
 
                 <button type="button" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('hospital') ? 'active' : '' }}"
                     data-bs-toggle="modal" data-bs-target="#policeAreaLayerModal">
@@ -462,75 +456,9 @@
   </div>
 </div>
 
-<div class="modal fade" id="police3Modal" tabindex="-1" aria-labelledby="police3ModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="max-width:800px;">
-    <div class="modal-content">
-      <div class="modal-header">
-        <div class="d-flex align-items-center gap-2">
-          <img src="{{ asset('images/Layer2.png') }}" alt="Divisional Command" style="width:24px; height:24px; object-fit:contain;">
-          <h5 class="modal-title" id="police3ModalLabel">Police Precinct</h5>
-        </div>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
+@include('partials.map-legend.specialized-unit')
 
-      <div class="modal-body">
-        <p><strong>Command level:</strong> Lowest-level territorial command</p>
-        <p><strong>Typical Head Rank:</strong> Police Lieutenant</p>
-        <p><strong>Administrative Equivalent:</strong> Police Precinct/local police command</p>
-        <p><strong>Role:</strong> Precinct Commands are the local territorial policing unit responsible for delivering frontline police services within designated geographic jurisdictions.</p>
-        <p><strong>Function:</strong> Precinct Commands manage patrol officers and shifts, coordinate first-response policing, and maintain day-to-day public safety and police presence within the Precinct area.</p>
-        <p class="mb-2"><strong>Responsibilities:</strong></p>
-        <ul>
-          <li>Direct daily patrol operations within the Precinct jurisdiction.</li>
-          <li>Supervise patrol officers, shifts, and other assigned frontline personnel.</li>
-          <li>Allocate personnel and patrol resources according to local operational requirements.</li>
-          <li>Manage responses to emergency and non-emergency calls for service.</li>
-          <li>Monitor crime, disorder, traffic, and public-safety conditions within the Precinct.</li>
-          <li>Coordinate preliminary responses to incidents requiring specialized GPD services.</li>
-          <li>Maintain liaison with residents, businesses, community organizations, and local authorities.</li>
-          <li>Review incident, arrest, and other operational reports submitted by patrol personnel.</li>
-          <li>Implement GPD policies and operational directives at the Precinct level.</li>
-          <li>Report Precinct activities, incidents, personnel matters, and operational requirements through the Neighborhood Patrol District command.</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="modal fade" id="police4Modal" tabindex="-1" aria-labelledby="police4ModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="max-width:800px;">
-    <div class="modal-content">
-      <div class="modal-header">
-        <div class="d-flex align-items-center gap-2">
-          <img src="{{ asset('images/Layer1.png') }}" alt="National Police HQ" style="width:24px; height:24px; object-fit:contain;">
-          <h5 class="modal-title" id="police4ModalLabel">National Police HQ</h5>
-        </div>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-
-      <div class="modal-body">
-        <p><strong>Command level:</strong> Highest-level territorial command</p>
-        <p><strong>Typical Head Rank:</strong> Police Major</p>
-        <p><strong>Administrative Equivalent:</strong> Territorial policing bureau</p>
-        <p><strong>Role:</strong> The Patrol Operations Bureau is the principal departmental command responsible for organizing and overseeing GPD’s geographically based patrol operations throughout Nauru.</p>
-        <p>The Patrol Operations Bureau directs territorial patrol services, coordinates the neighborhood patrol districts and precinct commands, and ensures consistent delivery of frontline police services across the island.</p>
-        <p class="mb-2"><strong>Responsibilities:</strong></p>
-        <ul>
-          <li>Direct territorial patrol operations throughout Nauru.</li>
-          <li>Supervise the activities of the neighborhood patrol districts and precinct commands.</li>
-          <li>Establish patrol priorities and operational requirements for territorial policing.</li>
-          <li>Coordinate deployment of patrol personnel and resources according to operational needs.</li>
-          <li>Monitor emergency response and frontline police service delivery.</li>
-          <li>Manage major incidents requiring resources from multiple Precincts or districts.</li>
-          <li>Ensure implementation of department-wide policing policies at the territorial level.</li>
-          <li>Review operational reports, crime patterns, and patrol performance from subordinate commands.</li>
-          <li>Oversee territorial operations with specialized GPD bureaus and divisions.</li>
-          <li>Report territorial policing activities and operational requirements to the Police Commander.</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
+@include('partials.map-legend.national-police')
 
 <div class="modal fade" id="policeAreaLayerModal" tabindex="-1" aria-labelledby="policeAreaLayerLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered image-modal-dialog">
